@@ -3,27 +3,27 @@
  */
 var express = require('express');
 var router = express.Router();
-var Family = require('../dbModels/familyModel');
+var Rooms = require('../dbModels/roomMpde;');
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  console.log("getting families:");
-  Family.find({}, function(err, Family) {
-    res.send(err || Family);
-  }).populate('members');
+router.get('/', function(req, res) {
+  console.log("getting rooms:");
+  Rooms.find({}, function(err, Room) {
+    res.send(err || Room);
+  }).populate('ite,s');
 
 });
 
 router.post('/', function(req, res) {
-  var newFamily = new Family(req.body);
-  newFamily.save(function(err, newFamily) {
+  var newRoom = new Rooms(req.body);
+  newRoom.save(function(err, newRoom) {
     if (err) {
       res.status(400);
       var statusMessage = err.errors[Object.keys(err.errors)[0]].message;
       statusMessage ? res.send(statusMessage) : res.send(err);
       //}
     } else {
-      res.status(200).send(newFamily);
+      res.status(200).send(newRoom);
     }
   })
 });
@@ -38,16 +38,16 @@ router.post('/', function(req, res) {
 
 
 //
-//Family.find({}).populate('members').exec(function (err, families) {
+//Rooms.find({}).populate('members').exec(function (err, families) {
 //
 //});
 //
 //
-////Family.find({}, function(err, families) {
+////Rooms.find({}, function(err, families) {
 ////
 ////}).populate('members');
 //
-//Family.findById({animalId}, function(err, family) {
+//Rooms.findById({animalId}, function(err, family) {
 //  Friend.findById({animalId}, function(err, friend) {
 //    family.members.push(friend._id);
 //    friend.isAvailable = false;
