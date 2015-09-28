@@ -105,7 +105,7 @@ ngApp.controller('RoomCtrl', function($scope, $http, Room) {
   //
   //
   //
-  //$scope.selectItemToPopulate = function($event, item) {
+  //$scope.addItemToRoom = function($event, item) {
   //  console.log("Match Made!");
   //  $event.stopPropagation();
   //  console.log(item._id, itemUnderConsideration._id);
@@ -121,7 +121,7 @@ ngApp.controller('RoomCtrl', function($scope, $http, Room) {
   //        });
   //    itemUnderConsideration = null;
   //  } else
-  //    $scope.noFriend = "There is no friend to Match";
+  //    $scope.noItem = "There is no item to add";
   //};
   //
   //Room.showAll()

@@ -1,20 +1,11 @@
 <div class="container inputField">
 <h2>{{title}}</h2>
 
-<form id="findFamily table" >
+<form id="findRooms table" >
   <div>
-    <input type="text" class="required" ng-model="family.name" placeholder="name" required/>
+    <input type="text" class="required" ng-model="room.name" placeholder="name" required/>
     <i class="fa fa-asterisk"></i>
   </div>
-
-  <div>
-    <input type="text" class="required" ng-model="family.phone" placeholder="phone" required/>
-    <i class="fa fa-asterisk"></i>
-  </div>
-
-  <div><input type="text" placeholder="address" ng-model="family.address"/></div>
-  <div><input type="text"  placeholder="notes" ng-model="family.notes"/></div>
-  <div><input type="text"  placeholder="members" ng-model="family.members"/></div>
 
 
 
@@ -22,25 +13,25 @@
   </form>
 
   <div class="row petDisplay">
-    <div ng-repeat="family in allFamilies  | filter: family"  class ="infoBox span1" ng-click="receiveClick(this)" >
+    <div ng-repeat="room in allRooms  | filter: room"  class ="infoBox span1" ng-click="receiveClick(this)" >
       <!--TODO: repeat over all keys and show key and key value-->
       <!--TODO: get image and show-->
-      <div> Name: {{family.name}} </div>
-      <div> Phone: {{family.phone}} </div>
-        <div ng-repeat="member in family.members" class="members">
-          <div>Name: {{member.name}}</div>
-          <div>Species: {{member.species}}</div>
+      <div> Name: {{room.name}} </div>
+      <div> Phone: {{room.phone}} </div>
+        <div ng-repeat="item in room.items" class="members">
+          <div>Name: {{item.name}}</div>
+          <div>QTY: {{item.quantity}}</div>
         </div>
-      <button ng-show="reveal(this)" ng-click="matchFriendToFamily($event, family)">Match</button>
+      <button ng-show="reveal(this)" ng-click="addItemToRoom($event, room)">Place Item</button>
     </div>
   </div>
 
-  <div class="potentialMatch" ng-show="isSelectingMatch()">
+  <div class="potentialMatch" ng-show="isSelectingItem()">
     <div class="newFriendBox infoBox">
-      <div>Pick a family for the following friend...{{noFriend}}</div>
-      <div> Name: {{friend.name}} {{friend.gender}} </div>
-      <div> Species: {{friend.species}} - {{friend.variety}} </div>
-      <div>{{friend.isAvailable}} </div>
+      <div>Pick a room for the following item...{{noItem}}</div>
+      <div> Name: {{item.name}} {{item.quantity}} </div>
+      <div> Cost: {{item.cost}} Total: {{item.cost}} * {{item.quantity}} </div>
+      <div>{{item.hasBeenPlaced}} </div>
       <button ng-click="cancelMatch()" value="cancel">Cancel Match</button>
     </div>
   </div>
