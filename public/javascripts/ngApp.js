@@ -35,6 +35,7 @@ ngApp.controller('ItemCtrl', function($scope, $http, $state, Item, Room) {
   $scope.title = "Find and Add an Item";
 
   var buttonNum;
+  var totRooms;
   $scope.receiveClick = function(id) {
     buttonNum = id;
     console.log("Button Shown!");
@@ -44,20 +45,31 @@ ngApp.controller('ItemCtrl', function($scope, $http, $state, Item, Room) {
     return buttonNum == id;
   };
 
-
-  $scope.selectItemToPopulate = function($event, thisItem) {
-    friendUnderConsideration = thisItem;
-    console.log("populating item :", thisItem);
-    $state.go('roomInput');
+  $scope.revealRooms = function($event) {
+    console.log("opp!");
     $event.stopPropagation();
-
+    Room.showAllRooms()
+    .then(function(res){
+          console.log("All rooms loaded");
+          $scope.allRooms = res.data;
+        })
+    .catch(function(err) {
+          console.log(err)
+        });
   };
 
-  Item.showAll()
+  $scope.selectItemToPopulate = function($event, thisItem) {
+    //friendUnderConsideration = thisItem;
+    console.log("populating item :", thisItem);
+    //$state.go('roomInput');
+    $event.stopPropagation();
+  };
+
+  Item.showAllItems()
     .then(function(res) {
-      console.log("All items loaded");
-      $scope.allItems = res.data;
-    })
+        console.log("All items loaded");
+        $scope.allItems = res.data;
+      })
     .catch(function(error) {
       console.log(error);
     });
@@ -65,7 +77,7 @@ ngApp.controller('ItemCtrl', function($scope, $http, $state, Item, Room) {
   $scope.addItem = function () {
     console.log("add that item!");
 
-    Item.add($scope.item)
+    Room.addItem($scope.item)
       .then(function(res) {
           $scope.newItem = res.data;
           $scope.item = {};
@@ -79,21 +91,22 @@ ngApp.controller('ItemCtrl', function($scope, $http, $state, Item, Room) {
   $scope.addRoom = function () {
     console.log("add that room!");
 
-    Room.add($scope.room)
-        .then(function(res) {
-          $scope.newRoom = res.data;
-          $scope.room = {};
-        })
-        .catch(function(error){
-          $scope.newRoom = error;
-        })
+  Room.add($scope.room)
+      .then(function(res) {
+        $scope.newRoom = res.data;
+        $scope.room = {};
+      })
+      .catch(function(error){
+        $scope.newRoom = error;
+      })
   };
+
 
 });
 
-
-ngApp.controller('RoomCtrl', function($scope, $http, Room) {
-  $scope.title = "Add a Room";
+//
+//ngApp.controller('RoomCtrl', function($scope, $http, Room) {
+//  $scope.title = "Add a Room";
 
   //var buttonNum;
   //
@@ -160,7 +173,7 @@ ngApp.controller('RoomCtrl', function($scope, $http, Room) {
   //      })
   //};
 
-});
+//});
 
 
 
@@ -168,13 +181,14 @@ ngApp.controller('RoomCtrl', function($scope, $http, Room) {
 
 ngApp.service('Item', function($http, constants) {
   let api = constants.apiUrl;
-  this.showAll = function(){return $http.get(api + '/items');};
-  this.add = function(params) {return $http.post(api + '/items', params);};
+  this.showAllItems = function(){return $http.get(api + '/items');};
+  this.addItem = function(params) {return $http.post(api + '/items', params);};
+
 });
 
 ngApp.service('Room', function($http, constants) {
   let api = constants.apiUrl;
-  this.showAll = function(){return $http.get(api + '/rooms');};
+  this.showAllRooms = function(){return $http.get(api + '/rooms');};
   this.add = function(params) {return $http.post(api + '/rooms', params);};
   this.match = function(roomId, itemId) {return $http.put(api + '/match/' + roomId + '/' + itemId )}
 });

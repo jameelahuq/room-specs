@@ -46,9 +46,9 @@
       <!--TODO: repeat over all keys and show key and key value-->
       <!--TODO: get image and show-->
         <div> Name: {{item.name}} {{item.quantity}} </div>
-        <div> Cost: {{item.cost}} </div>
+        <div> Cost: {{item.cost}} * {{item.quantity}} </div>
         <div>{{item.hasBeenPlaced}} </div>
-        <select ng-options="room in rooms by index"></select>
+        <select ng-model="dropdown" ng-click="revealRooms($event)" ng-options="room.name for room in allRooms"></select>
         <button ng-show="reveal(this)" ng-click="selectItemToPopulate($event, item)">Populate</button>
     </div>
   </div>
