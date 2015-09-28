@@ -158,7 +158,7 @@ ngApp.service('Item', function($http, constants) {
   this.add = function(params) {return $http.post(api + '/items', params);};
 });
 
-ngApp.service('Rooms', function($http, constants) {
+ngApp.service('Room', function($http, constants) {
   let api = constants.apiUrl;
   this.showAll = function(){return $http.get(api + '/rooms');};
   this.add = function(params) {return $http.post(api + '/rooms', params);};
