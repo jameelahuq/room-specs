@@ -31,7 +31,7 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 });
 
 
-ngApp.controller('ItemCtrl', function($scope, $http, $state, Item) {
+ngApp.controller('ItemCtrl', function($scope, $http, $state, Item, Room) {
   $scope.title = "Find and Add an Item";
 
   var buttonNum;
@@ -75,12 +75,26 @@ ngApp.controller('ItemCtrl', function($scope, $http, $state, Item) {
       })
     };
 
+
+  $scope.addRoom = function () {
+    console.log("add that room!");
+
+    Room.add($scope.room)
+        .then(function(res) {
+          $scope.newRoom = res.data;
+          $scope.room = {};
+        })
+        .catch(function(error){
+          $scope.newRoom = error;
+        })
+  };
+
 });
 
 
 ngApp.controller('RoomCtrl', function($scope, $http, Room) {
   $scope.title = "Add a Room";
-  //
+
   //var buttonNum;
   //
   //$scope.item = itemUnderConsideration;

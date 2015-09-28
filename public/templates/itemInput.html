@@ -1,6 +1,16 @@
 <div class="container inputField">
 <h2>{{title}}</h2>
 
+  <form id="findRooms table" >
+    <div>
+      <input type="text" class="required" ng-model="room.name" placeholder="new room name" required/>
+      <!--<i class="fa fa-asterisk"></i>-->
+    </div>
+
+
+    <button type="submit" ng-click="addRoom()">Add Room</button>
+  </form>
+
 <form id="findItem table" >
   <div>
     <input type="text" class="required" ng-model="item.name" placeholder="name" required/>
@@ -38,6 +48,7 @@
         <div> Name: {{item.name}} {{item.quantity}} </div>
         <div> Cost: {{item.cost}} </div>
         <div>{{item.hasBeenPlaced}} </div>
+        <select ng-options="room in rooms by index"></select>
         <button ng-show="reveal(this)" ng-click="selectItemToPopulate($event, item)">Populate</button>
     </div>
   </div>
