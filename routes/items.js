@@ -32,22 +32,5 @@ router.post('/', function(req, res) {
 module.exports = router;
 
 
-//var AnimalSchema = new Schema({
-//  name: String
-//  , type: String
-//});
-//
-//AnimalSchema.methods.findSimilarType = function findSimilarType (cb) {
-//  return this.model('Animal').find({ type: this.type }, cb);
-//};
-//
-//var Animal = mongoose.model('Animal', AnimalSchema);
-//var dog = new Animal({ name: 'Rover', type: 'dog' });
-//
-//dog.findSimilarType(function (err, dogs) {
-//  if (err) return ...
-//  dogs.forEach(..);
-//})
-
 
 

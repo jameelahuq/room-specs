@@ -10,7 +10,7 @@ var Item = require('../dbModels/itemModel');
 
 //console.log("yo");
 
-router.put('/:familyId/:friendId', function(req,res) {
+router.put('/:roomId/:itemId', function(req,res) {
 
   Room.findById(req.params.roomId, function(err, room) {
     Item.findById(req.params.itemId, function(err, item) {

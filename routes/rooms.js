@@ -3,14 +3,14 @@
  */
 var express = require('express');
 var router = express.Router();
-var Rooms = require('../dbModels/roomMpde;');
+var Rooms = require('../dbModels/roomModel');
 
 /* GET users listing. */
 router.get('/', function(req, res) {
   console.log("getting rooms:");
   Rooms.find({}, function(err, Room) {
     res.send(err || Room);
-  }).populate('ite,s');
+  }).populate('items');
 
 });
 
@@ -27,37 +27,6 @@ router.post('/', function(req, res) {
     }
   })
 });
-
-//router.put('toggleAvailable/:mongoId', function(req, res) {
-//  Friend.findById(req.params.mongoId, function (err, friend) {
-//    friend.toggleAvailable(function (err, savedAnimal) {
-//      res.send(savedAnimal)
-//    });
-//  });
-//});
-
-
-//
-//Rooms.find({}).populate('members').exec(function (err, families) {
-//
-//});
-//
-//
-////Rooms.find({}, function(err, families) {
-////
-////}).populate('members');
-//
-//Rooms.findById({animalId}, function(err, family) {
-//  Friend.findById({animalId}, function(err, friend) {
-//    family.members.push(friend._id);
-//    friend.isAvailable = false;
-//    family.save(function(err, savedFamily){
-//      friend.save(function(err, savedPet) {
-//        res.send();
-//      })
-//    })
-//  })
-//});
 
 
 

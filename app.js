@@ -35,9 +35,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/friends', items);
-app.use('/families', rooms);
-app.use('/match', populate);
+app.use('/items', items);
+app.use('/rooms', rooms);
+app.use('/populate', populate);
 
 
 // catch 404 and forward to error handler
