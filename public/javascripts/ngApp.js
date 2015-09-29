@@ -21,12 +21,12 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
         url: '/items',
         templateUrl: 'templates/itemInput.html',
         controller: 'ItemCtrl'
-      })
-      .state('roomInput', {
-        url: '/rooms',
-        templateUrl: 'templates/roomInput.html',
-        controller: "RoomCtrl"
-      })
+      });
+      //.state('roomInput', {
+      //  url: '/rooms',
+      //  templateUrl: 'templates/roomInput.html',
+      //  controller: "RoomCtrl"
+      //})
 
 });
 
@@ -35,28 +35,13 @@ ngApp.controller('ItemCtrl', function($scope, $http, $state, Item, Room) {
   $scope.title = "Find and Add an Item";
 
   var buttonNum;
-  var totRooms;
-  $scope.receiveClick = function(id) {
-    buttonNum = id;
-    console.log("Button Shown!");
-  };
 
-  $scope.reveal = function (id) {
+
+  $scope.revealButton = function (id) {
     return buttonNum == id;
   };
 
-  $scope.revealRooms = function($event) {
-    console.log("opp!");
-    $event.stopPropagation();
-    Room.showAllRooms()
-    .then(function(res){
-          console.log("All rooms loaded");
-          $scope.allRooms = res.data;
-        })
-    .catch(function(err) {
-          console.log(err)
-        });
-  };
+
 
   $scope.selectItemToPopulate = function($event, thisItem) {
     //friendUnderConsideration = thisItem;
@@ -69,6 +54,23 @@ ngApp.controller('ItemCtrl', function($scope, $http, $state, Item, Room) {
     .then(function(res) {
         console.log("All items loaded");
         $scope.allItems = res.data;
+        //$scope.revealRooms = function($event, itemId) {
+        //  console.log("opp!");
+        //  $event.stopPropagation();
+          Room.showAllRooms()
+              .then(function(res){
+                console.log("All rooms loaded");
+                $scope.allRooms = res.data;
+              })
+              .catch(function(err) {
+                console.log(err)
+              });
+
+
+        //  buttonNum = itemId;
+        //  console.log("Button Shown!");
+        //
+        //};
       })
     .catch(function(error) {
       console.log(error);
@@ -77,7 +79,7 @@ ngApp.controller('ItemCtrl', function($scope, $http, $state, Item, Room) {
   $scope.addItem = function () {
     console.log("add that item!");
 
-    Room.addItem($scope.item)
+    Item.add($scope.item)
       .then(function(res) {
           $scope.newItem = res.data;
           $scope.item = {};
@@ -91,14 +93,14 @@ ngApp.controller('ItemCtrl', function($scope, $http, $state, Item, Room) {
   $scope.addRoom = function () {
     console.log("add that room!");
 
-  Room.add($scope.room)
-      .then(function(res) {
-        $scope.newRoom = res.data;
-        $scope.room = {};
-      })
-      .catch(function(error){
-        $scope.newRoom = error;
-      })
+    Room.add($scope.room)
+        .then(function(res) {
+          $scope.newRoom = res.data;
+          $scope.room = {};
+        })
+        .catch(function(error){
+          $scope.newRoom = error;
+        })
   };
 
 
@@ -182,7 +184,7 @@ ngApp.controller('ItemCtrl', function($scope, $http, $state, Item, Room) {
 ngApp.service('Item', function($http, constants) {
   let api = constants.apiUrl;
   this.showAllItems = function(){return $http.get(api + '/items');};
-  this.addItem = function(params) {return $http.post(api + '/items', params);};
+  this.add = function(params) {return $http.post(api + '/items', params);};
 
 });
 
@@ -190,6 +192,6 @@ ngApp.service('Room', function($http, constants) {
   let api = constants.apiUrl;
   this.showAllRooms = function(){return $http.get(api + '/rooms');};
   this.add = function(params) {return $http.post(api + '/rooms', params);};
-  this.match = function(roomId, itemId) {return $http.put(api + '/match/' + roomId + '/' + itemId )}
+  this.addItem = function(roomId, itemId) {return $http.put(api + '/match/' + roomId + '/' + itemId )}
 });
 

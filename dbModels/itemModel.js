@@ -7,7 +7,7 @@ var itemScheme = Mongoose.Schema({
   name: {type: String, required: true},
   quantity: {type: Number, required: true},
   cost: {type: Number, required: true},
-  hasBeenPlaced: {type: Boolean, required: true, default: false},
+  room: {type: Mongoose.Schema.ObjectId, ref: "Room", required: true},
   photo: String,
   description: String
   });
