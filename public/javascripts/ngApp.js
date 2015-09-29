@@ -10,28 +10,9 @@ ngApp.constant('constants', {
   apiUrl: 'http://localhost:3000'
 });
 
-var friendUnderConsideration;
-
-ngApp.config(function($stateProvider, $urlRouterProvider) {
-
-  $urlRouterProvider.otherwise('/');
-
-  $stateProvider
-      .state('itemInput', {
-        url: '/items',
-        templateUrl: 'templates/itemInput.html',
-        controller: 'ItemCtrl'
-      });
-      //.state('roomInput', {
-      //  url: '/rooms',
-      //  templateUrl: 'templates/roomInput.html',
-      //  controller: "RoomCtrl"
-      //})
-
-});
-
 
 ngApp.controller('ItemCtrl', function($scope, $http, $state, Item, Room) {
+  console.log("We are in ItemCtrl");
   $scope.title = "Find and Add an Item";
 
   var buttonNum;
@@ -122,77 +103,6 @@ ngApp.controller('ItemCtrl', function($scope, $http, $state, Item, Room) {
   $scope.showRoom = function() {}
 
 });
-
-//
-//ngApp.controller('RoomCtrl', function($scope, $http, Room) {
-//  $scope.title = "Add a Room";
-
-  //var buttonNum;
-  //
-  //$scope.item = itemUnderConsideration;
-  //
-  //$scope.isSelectingMatch = function() {
-  //  return itemUnderConsideration;
-  //};
-  //$scope.cancelMatch = function () {
-  //  itemUnderConsideration = null;
-  //};
-  //
-  ////TODO: we use these following two functions two times,
-  ////is it possible to make a factory?
-  //$scope.receiveClick = function(id) {
-  //  buttonNum = id;
-  //  console.log("Button Shown!");
-  //};
-  //
-  //$scope.reveal = function (id) {
-  //  return buttonNum == id;
-  //};
-  //
-  //
-  //
-  //$scope.addItemToRoom = function($event, item) {
-  //  console.log("Match Made!");
-  //  $event.stopPropagation();
-  //  console.log(item._id, itemUnderConsideration._id);
-  //  if (itemUnderConsideration) {
-  //    Room.match(item._id, itemUnderConsideration._id)
-  //    .then(function(res) {
-  //          $scope.roo = {};
-  //          console.log(res.data);
-  //          //TODO: get here
-  //        })
-  //    .catch(function(err){
-  //          console.log(err);
-  //        });
-  //    itemUnderConsideration = null;
-  //  } else
-  //    $scope.noItem = "There is no item to add";
-  //};
-  //
-  //Room.showAll()
-  //    .then(function(res) {
-  //      console.log("All rooms loaded");
-  //      $scope.allRooms = res.data;
-  //    })
-  //    .catch(function(error) {
-  //      console.log(error);
-  //    });
-  //
-  //$scope.addRoom = function () {
-  //  console.log("add that room!");
-  //
-  //  Room.add($scope.room)
-  //      .then(function(res) {
-  //        $scope.newRoom = res.data;
-  //        $scope.room = {};
-  //      })
-  //      .catch(function(error){
-  //        $scope.newRoom = error;
-  //      })
-  //};
-
-//});
 
 
 
