@@ -42,6 +42,7 @@ ngApp.controller('ItemCtrl', function($scope, $http, $state, Item, Room) {
   };
 
 
+  //console.log($scope.selectRoom);
 
   $scope.selectItemToPopulate = function($event, thisItem) {
     //friendUnderConsideration = thisItem;
@@ -49,6 +50,21 @@ ngApp.controller('ItemCtrl', function($scope, $http, $state, Item, Room) {
     //$state.go('roomInput');
     $event.stopPropagation();
   };
+
+  $scope.roomNameMatchesItem = function (item) {
+    console.log("Item:", item.room);
+    console.log("Room:", $scope.roomName);
+    if (!$scope.desiredRoom) {
+      return true;
+    } else if (item.room === $scope.desiredRoom._id) {
+      return true;
+    //} else if ($scope.roomName === "") {
+    //  return true;
+    //} else {
+    //  return false;
+    }
+  };
+
 
   Item.showAllItems()
     .then(function(res) {
@@ -103,6 +119,7 @@ ngApp.controller('ItemCtrl', function($scope, $http, $state, Item, Room) {
         })
   };
 
+  $scope.showRoom = function() {}
 
 });
 

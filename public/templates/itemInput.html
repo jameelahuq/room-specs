@@ -4,8 +4,8 @@
 
 
     <form id="findRooms" class="row">
-       <input type="text" class="required columns medium-8" ng-model="room.name" placeholder="new room name" required/>
-        <button type="submit" class="columns medium-4" ng-click="addRoom()">Add Room</button>
+       <input type="text" class="required column medium-8" ng-model="room.name" placeholder="new room name" required/>
+        <button type="submit" class="column medium-4" ng-click="addRoom()">Add Room</button>
       <!--<i class="fa fa-asterisk"></i>-->
     </form>
 
@@ -24,16 +24,18 @@
     <input ng-model="item.cost" type="number" placeholder="cost" />
   </div>
 
-  <select ng-model="item.room" class="column medium-3" ng-click="revealButton($event, this)" ng-options="room.name for room in allRooms"></select>
+  <select ng-model="item.room" class="column medium-3" ng-options="room.name for room in allRooms"></select>
 
   <button href="" class="right" type="submit" ng-click="addItem()" >Add Item</button>
     <!--<button class="column medium-3" type="submit" ng-click="addItem()">Add Item</button>-->
   </form>
 
 
+  <select ng-model="desiredRoom" class="row" ng-click="showRoom()" ng-options="room._id for room in allRooms"></select>
+
 
   <div class="row petDisplay">
-      <div ng-repeat="item in allItems  | filter: item"  class ="infoBox span1" ng-click="receiveClick(this)">
+      <div ng-repeat="item in allItems | filter: roomNameMatchesItem"  class ="infoBox span1" ng-click="receiveClick(this)">
       <!--TODO: repeat over all keys and show key and key value-->
       <!--TODO: get image and show-->
         <div> Name: {{item.name}} {{item.quantity}} </div>
