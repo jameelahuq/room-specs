@@ -17,6 +17,32 @@ ngApp.controller('ItemCtrl', function($scope, $http, $state, Item, Room) {
 
   var buttonNum;
 
+  var showAllRooms = function() {
+    Room.showAllRooms()
+        .then(function(res){
+          console.log("All rooms loaded");
+          $scope.allRooms = res.data;
+        })
+        .catch(function(err) {
+          console.log(err)
+        });
+  };
+
+  var showAllItems = function() {
+    Item.showAllItems()
+        .then(function (res) {
+          console.log("All items loaded");
+          $scope.allItems = res.data;
+          showAllRooms();
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+  };
+
+  showAllItems();
+
+
 
   $scope.revealButton = function (id) {
     return buttonNum == id;
@@ -26,9 +52,7 @@ ngApp.controller('ItemCtrl', function($scope, $http, $state, Item, Room) {
   //console.log($scope.selectRoom);
 
   $scope.selectItemToPopulate = function($event, thisItem) {
-    //friendUnderConsideration = thisItem;
     console.log("populating item :", thisItem);
-    //$state.go('roomInput');
     $event.stopPropagation();
   };
 
@@ -39,39 +63,10 @@ ngApp.controller('ItemCtrl', function($scope, $http, $state, Item, Room) {
       return true;
     } else if (item.room === $scope.desiredRoom._id) {
       return true;
-    //} else if ($scope.roomName === "") {
-    //  return true;
-    //} else {
-    //  return false;
     }
   };
 
 
-  Item.showAllItems()
-    .then(function(res) {
-        console.log("All items loaded");
-        $scope.allItems = res.data;
-        //$scope.revealRooms = function($event, itemId) {
-        //  console.log("opp!");
-        //  $event.stopPropagation();
-          Room.showAllRooms()
-              .then(function(res){
-                console.log("All rooms loaded");
-                $scope.allRooms = res.data;
-              })
-              .catch(function(err) {
-                console.log(err)
-              });
-
-
-        //  buttonNum = itemId;
-        //  console.log("Button Shown!");
-        //
-        //};
-      })
-    .catch(function(error) {
-      console.log(error);
-    });
 
   $scope.addItem = function () {
     console.log("add that item!");
@@ -80,6 +75,7 @@ ngApp.controller('ItemCtrl', function($scope, $http, $state, Item, Room) {
       .then(function(res) {
           $scope.newItem = res.data;
           $scope.item = {};
+          showAllItems();
       })
       .catch(function(error){
         $scope.newItem = error;
@@ -94,6 +90,7 @@ ngApp.controller('ItemCtrl', function($scope, $http, $state, Item, Room) {
         .then(function(res) {
           $scope.newRoom = res.data;
           $scope.room = {};
+          showAllRooms();
         })
         .catch(function(error){
           $scope.newRoom = error;
