@@ -7,7 +7,7 @@ var ngApp = angular.module('room-spec', ['ui.router']);
 console.log("ngApp is running");
 
 ngApp.constant('constants', {
-  apiUrl: 'http://localhost:3000'
+  apiUrl: 'https://hidden-tundra-3177.herokuapp.com'
 });
 
 
